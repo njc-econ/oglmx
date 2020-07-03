@@ -1,0 +1,59 @@
+\name{predict.oglmx}
+\alias{predict.oglmx}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Predict method for oglmx objects
+}
+\description{
+Obtains predictions or probabilities from a fitted ordered generalized linear model object as estimated in the oglmx package.
+}
+\usage{
+predict.oglmx(object, newdata = NULL, type = c("probs", "outcome"),
+                      outcome = "all", na.action, ...)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{object}{
+%%     ~~Describe \code{x} here~~
+  a fitted object of class "oglmx".
+}
+  \item{newdata}{optional data.frame in which to find variables to be used for prediction. If omitted the fitted linear predictors are used.}
+  \item{type}{the type of prediction required. The default, "probs", gives the predicted probability for the set of outcomes specified by the outcome argument. Alternatively "outcome" gives the highest probability outcome. }
+  \item{outcome}{Either "all" or a character vector specifying the names of outcomes for which probabilities are required.}
+  \item{na.action}{function determining what should be done with missing values in the newdata, default predicts NA.}
+  \item{...}{further arguments}
+}
+\details{
+%%  ~~ If necessary, more details than the description above ~~
+If newdata is omitted the predictions are based on the data used for the fit. In that case how cases with missing values in the original fit is determined by the na.action argument of that fit. If na.action = na.omit omitted cases will not appear in the residuals, whereas if na.action = na.exclude they will appear (in predictions and standard errors), with residual value NA.
+}
+\value{
+%%  ~Describe the value returned
+%%  If it is a LIST, use
+%%  \item{comp1 }{Description of 'comp1'}
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+}
+\references{
+%% ~put references to the literature/web site here ~
+}
+%\author{
+%%  ~~who you are~~
+%}
+%\note{
+%%  ~~further notes~~
+%}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+%% ~~objects to See Also as \code{\link{help}}, ~~~
+  \code{\link{oglmx}}
+}
+\examples{
+
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+%\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
+%\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
