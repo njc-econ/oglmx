@@ -2,17 +2,20 @@ oglmx<-function(formulaMEAN, formulaSD=NULL, data, start=NULL, weights=NULL, lin
                 constantMEAN=TRUE, constantSD=TRUE, beta=NULL, delta=NULL, threshparam=NULL,
                 analhessian=TRUE, sdmodel=expression(exp(z)), SameModelMEANSD=FALSE, na.action,
                 savemodelframe=TRUE, Force=FALSE, robust=FALSE){
+  
   cl<-match.call()
   oglmxoutput<-list()
-  fitinput<-list()
-  fitinput$analhessian<-analhessian
-  fitinput$sdmodel<-sdmodel
-  fitinput$robust<-robust
-  fitinput$link<-link
-  oglmxoutput$link<-link
-  oglmxoutput$sdmodel<-sdmodel
-  oglmxoutput$call<-cl
+  fitinput <- list()
+  fitinput$analhessian <- analhessian
+  fitinput$sdmodel <- sdmodel
+  fitinput$robust <- robust
+  fitinput$link <- link
+  oglmxoutput$link <- link
+  oglmxoutput$sdmodel <- sdmodel
+  oglmxoutput$call <- cl
  # if (!constantMEAN){formulaMEAN<-update(formulaMEAN,~0+.)}
+  
+  
   
   if (!is.null(formulaSD)){
   #  if (!constantSD){formulaSD<-update(formulaSD,~0+.)}
@@ -24,11 +27,11 @@ oglmx<-function(formulaMEAN, formulaSD=NULL, data, start=NULL, weights=NULL, lin
   
   names(cl)[match("formulaMEAN",names(cl))]<-"formula"
   #return(cl)
-  m<-match(c("formula","data","subset","weights","na.action","offset"),names(cl),0L)
-  mf<-cl[c(1L,m)]
+  m <- match(c("formula","data","subset","weights","na.action","offset"),names(cl),0L)
+  mf <- cl[c(1L,m)]
   mf$drop.unused.levels <- TRUE
   mf[[1L]] <- quote(stats::model.frame)
-  mf<-eval(mf,parent.frame())
+  mf <- eval(mf,parent.frame())
   
   factorvars<-names(attr(attr(mf,"terms"),"dataClasses"))[attr(attr(mf,"terms"),"dataClasses")=="factor"]
   attr(factorvars,"levels")<-lapply(factorvars,function(x){levels(mf[[x]])})
@@ -56,14 +59,14 @@ oglmx<-function(formulaMEAN, formulaSD=NULL, data, start=NULL, weights=NULL, lin
     stop("More than 20 different values for outcome variable.\n If you are sure you wish to estimate this model rerun command with Force option set to TRUE.")
   }
   
-  Y<-as.numeric(Y)
-  outcomeMatrix<-1 * ((col(matrix(0, length(Y), No.Outcomes))) == Y)
-  colnames(outcomeMatrix)<-outcomenames
+  Y <- as.numeric(Y)
+  outcomeMatrix <- 1 * ((col(matrix(0, length(Y), No.Outcomes))) == Y)
+  colnames(outcomeMatrix) <- outcomenames
   
-  oglmxoutput$NOutcomes<-No.Outcomes
+  oglmxoutput$NOutcomes <- No.Outcomes
   
   if (!is.null(formulaSD)){
-    Z<-model.matrix(formulaSD,mf)
+    Z <- model.matrix(formulaSD, mf)
     #termsSD<-terms(formulaSD)
     oglmxoutput$Hetero<-TRUE
     if (!constantSD){
