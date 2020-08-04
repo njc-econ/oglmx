@@ -4,7 +4,7 @@ mergeformulas<-function(formula1,formula2){
   rhsvarsFM1<-attr(termsFM1,"term.labels")
   rhsvarsFM2<-attr(termsFM2,"term.labels")
   newterms<-rhsvarsFM2[!(rhsvarsFM2 %in% rhsvarsFM1)]
-  if (length(newterms)>1){
+  if (length(newterms)>0){
     if (attr(termsFM1,"intercept")==0 & attr(termsFM2,"intercept")==1){
       updateform<-as.formula(paste("~.+1+",paste(newterms,collapse = "+")))
     } else {
